@@ -67,3 +67,7 @@ class DataProvider:
 
         self.df['text'] = tokens_without_stop_words
 
+    def convert_label_to_categorical(self):
+        self.df['sentiment'] = pd.Categorical(self.df.sentiment,
+                         categories=['negative', 'neutral', 'positive'])
+
