@@ -40,7 +40,7 @@ def predict_semantic(btn1, text):
         model = load_model()
         model_to_predict: Model = Model()
         model_to_predict.add_model_to_model(model=model)
-        p = predict(model, text)
+        p = predict(model_to_predict, text)
         return p
     else:
         return('Hi')

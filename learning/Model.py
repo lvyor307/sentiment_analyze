@@ -1,13 +1,11 @@
 import numpy as np
 from learning.DataProvider import DataProvider
-from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-# from tensorflow.keras import regularizers
+from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.models import Sequential
-from tensorflow.keras import layers
-# from tensorflow.keras import backend as K
-from tensorflow.keras.callbacks import ModelCheckpoint
+from keras.models import Sequential
+from keras import layers
+from keras.callbacks import ModelCheckpoint
 
 
 class Model:
