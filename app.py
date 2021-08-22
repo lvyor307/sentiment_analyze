@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 from dash_html_components.Div import Div
 from helpers import load_model, predict, load_dp
 from learning.Model import Model
-import dash_leaflet as dl
+
 
 app = dash.Dash(
     __name__,
