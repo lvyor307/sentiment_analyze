@@ -1,17 +1,17 @@
 import numpy as np
 from learning.DataProvider import DataProvider
-from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
-from keras.models import Sequential
-from keras import layers
-from keras.callbacks import ModelCheckpoint
-
+from tensorflow.keras.models import Sequential
+from tensorflow.keras import layers
+from tensorflow.keras.callbacks import ModelCheckpoint
+import pickle
 
 class Model:
     def __init__(self):
         self.dp = None
-        self.model = None
+        self.model = Sequential()
         self.words_embeded = None
         self.X_train = None
         self.X_test = None
@@ -20,10 +20,10 @@ class Model:
         self.lable = None
         self.max_len = 200
         self.max_words = 5000
-        self.tokenizer = Tokenizer(num_words=5000)
+        self.tokenizer =  Tokenizer(num_words=5000)
 
-    def add_dp_to_model(self, dp: DataProvider):
-        self.dp = dp
+
+
 
     def word_embeding(self):
         X = self.dp.df['text']
@@ -40,7 +40,6 @@ class Model:
 
     def train_model(self):
         # Here I train a LSTM model:
-        self.model = Sequential()
         # The embedding layer
         self.model.add(layers.Embedding(self.max_words, 20))
         self.model.add(layers.LSTM(15, dropout=0.5))  # Our LSTM layer
@@ -50,10 +49,17 @@ class Model:
         checkpoint1 = ModelCheckpoint("model.hdf5", monitor='val_accuracy',
                                       verbose=1, save_best_only=True, mode='auto',
                                       period=1, save_weights_only=False)
-
-        self.model.fit(self.X_train, self.y_train, epochs=1,
+        self.model.fit(self.X_train, self.y_train, epochs=70,
                        validation_data=(self.X_test, self.y_test),
                        callbacks=[checkpoint1])
 
-    def add_model_to_model(self, model):
+
+
+
+
+    def set_model(self, model):
         self.model = model
+
+
+    def set_dp(self, dp: DataProvider):
+        self.dp = dp

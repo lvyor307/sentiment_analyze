@@ -3,13 +3,13 @@ import os
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 import nltk.downloader
-
+import pickle
 
 class DataProvider:
     def __init__(self, path: str):
-
         self.path = path
         self.df: pd.DataFrame = None
+
 
     def load_from_csv(self):
         if not os.path.exists(self.path):
@@ -22,11 +22,13 @@ class DataProvider:
             raise Exception("No sentiment column in Data Frame")
         self.df = df[['text', 'sentiment']]
 
+
     def remove_duplicates(self):
         '''
         This method drop duplicates from text column
         '''
         self.df.drop_duplicates(subset=['text'], inplace=True)
+
 
     def converting_upper_case_to_lower_case(self):
         '''
@@ -41,6 +43,7 @@ class DataProvider:
 
         self.df.drop('text', axis=1, inplace=True)
         self.df.rename(columns={'processed_text': 'text'}, inplace=True)
+
 
     def stop_word_removal(self):
         '''
@@ -67,6 +70,12 @@ class DataProvider:
 
         self.df['text'] = tokens_without_stop_words
 
+
     def convert_label_to_categorical(self):
         self.df['sentiment'] = pd.Categorical(self.df.sentiment,
                                               categories=['negative', 'neutral', 'positive'])
+    
+
+    def save_dp(self):
+        with open('dp.pickle', 'wb') as handle:
+            pickle.dump(self, handle, protocol=pickle.HIGHEST_PROTOCOL)
