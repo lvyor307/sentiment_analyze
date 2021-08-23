@@ -24,13 +24,13 @@ app.layout = html.Div([
             html.Div([
             dcc.Textarea(
                 id='text_box',
-                placeholder='Please enter text to analyze...',
+                placeholder='Please enter text for analysis...',
                 spellCheck = True,
                 style={'width': '49%', 'display': 'inline-block','height' : 200},
             ),
             html.Div([
                 html.Button(
-                    'Analys my text', id='submit-val', n_clicks=0
+                    'Analyze your text', id='submit-val', n_clicks=0
                     )
                 ],style={'width': '49%', 'display': 'inline-block',
                 'position': 'absolute', 'margin-left': '5px'})
